@@ -7,6 +7,28 @@ import { EVENTS } from '../data/events';
 // Helper to clamp values
 const clamp = (num: number, min: number, max: number) => Math.min(Math.max(num, min), max);
 
+const getEffectSummary = (effect: Partial<Status>) => {
+    const summaries: string[] = [];
+    if ((effect.tech || 0) > 0) summaries.push('技術力が上がった');
+    if ((effect.biz || 0) > 0) summaries.push('業務理解が深まった');
+    if ((effect.comm || 0) > 0) summaries.push('コミュニケーション能力が上がった');
+    if ((effect.stamina || 0) > 0) summaries.push('体力が回復した');
+    if ((effect.mental || 0) > 0) summaries.push('メンタルが回復した');
+    if ((effect.marketValue || 0) > 0) summaries.push('市場価値が上がった');
+    if ((effect.salary || 0) > 0) summaries.push('年収が上がった');
+
+    // Negative effects
+    if ((effect.tech || 0) < 0) summaries.push('技術力が下がった');
+    if ((effect.biz || 0) < 0) summaries.push('業務理解に支障が出た');
+    if ((effect.comm || 0) < 0) summaries.push('コミュ力が下がった');
+    if ((effect.stamina || 0) < 0) summaries.push('体力を消耗した');
+    if ((effect.mental || 0) < 0) summaries.push('メンタルを削られた');
+    if ((effect.marketValue || 0) < 0) summaries.push('市場価値が下がった');
+    if ((effect.salary || 0) < 0) summaries.push('年収が下がった');
+
+    return summaries.length > 0 ? summaries.join('、') + '。' : '';
+};
+
 function gameReducer(state: GameState, action: GameAction): GameState {
     console.log('Reducer Action:', action.type);
     switch (action.type) {
@@ -39,8 +61,21 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
             // Update history
             let historyText = `${state.year}年目 ${state.season + 1}Q: 「${selectedAction.name}」を行った。`;
+
+            // Calculate net effect for summary (including costs for stamina/mental)
+            const netEffect: Partial<Status> = {
+                ...selectedAction.effect,
+                stamina: (selectedAction.effect.stamina || 0) - selectedAction.cost.stamina,
+                mental: (selectedAction.effect.mental || 0) - selectedAction.cost.mental,
+            };
+
+            const summary = getEffectSummary(netEffect);
+            if (summary) {
+                historyText += ` ${summary}`;
+            }
+
             if (action.actionId === 'change_job') {
-                historyText += ` 年収が市場価値に合わせて調整された！`;
+                historyText += ` 新たな環境での挑戦が始まった。年収が見直された！`;
             }
             const newHistory = [...state.history, historyText];
 
@@ -131,12 +166,13 @@ function gameReducer(state: GameState, action: GameAction): GameState {
                 (effect.stamina ? `体力 ${effect.stamina > 0 ? '+' : ''}${effect.stamina} ` : '') +
                 (effect.mental ? `メンタル ${effect.mental > 0 ? '+' : ''}${effect.mental} ` : '') +
                 (effect.tech ? `技術 ${effect.tech > 0 ? '+' : ''}${effect.tech} ` : '') +
-                (effect.biz ? `ビジネス ${effect.biz > 0 ? '+' : ''}${effect.biz} ` : '') +
+                (effect.biz ? `業務理解 ${effect.biz > 0 ? '+' : ''}${effect.biz} ` : '') +
                 (effect.comm ? `コミュ ${effect.comm > 0 ? '+' : ''}${effect.comm} ` : '') +
                 (effect.marketValue ? `市場価値 ${effect.marketValue > 0 ? '+' : ''}${effect.marketValue} ` : '') +
                 (effect.salary ? `年収 ${effect.salary > 0 ? '+' : ''}${effect.salary} ` : '');
 
-            const newHistory = [...state.history, `イベント「${eventTitle}」: ${label} を選択した。`];
+            const summary = getEffectSummary(effect);
+            const newHistory = [...state.history, `イベント「${eventTitle}」: ${label} を選択した。${summary ? ` ${summary}` : ''}`];
 
             return {
                 ...state,

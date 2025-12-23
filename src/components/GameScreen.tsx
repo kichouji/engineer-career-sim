@@ -87,6 +87,8 @@ export const GameScreen: React.FC = () => {
                             // Special Actions
                             if (state.lastActionId === 'connect_sns') {
                                 imageSrc = '/src/assets/action_work.png'; // Use work image for SNS (computer usage)
+                            } else if (state.lastActionId === 'work_minimum') {
+                                imageSrc = '/src/assets/bg_office.png'; // Use office bg (not working hard)
                             } else if (state.lastActionType === 'STUDY') imageSrc = '/src/assets/action_study.png';
                             else if (state.lastActionType === 'WORK') imageSrc = '/src/assets/action_work.png';
                             else if (state.lastActionType === 'CONNECT') imageSrc = '/src/assets/action_connect.png';
