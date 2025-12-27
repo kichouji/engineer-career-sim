@@ -37,6 +37,13 @@ export interface EventChoice {
   nextEventId?: string;
 }
 
+export type LogType = 'info' | 'study' | 'work' | 'connect' | 'rest' | 'event' | 'danger' | 'success';
+
+export interface LogEntry {
+  text: string;
+  type: LogType;
+}
+
 export interface GameState {
   year: number;
   season: number; // 0: Spring, 1: Summer, 2: Autumn, 3: Winter
@@ -45,7 +52,7 @@ export interface GameState {
   popupMessage: string | null;
   lastActionType: ActionType | null;
   lastActionId: string | null;
-  history: string[];
+  history: LogEntry[];
   isGameOver: boolean;
   gameResult: 'S' | 'A' | 'B' | 'C' | null;
 }

@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from 'react';
-import type { GameState, GameAction, GameEvent, Status } from '../types';
+import type { GameState, GameAction, GameEvent, Status, LogType, LogEntry } from '../types';
 import { INITIAL_GAME_STATE, MAX_YEAR, TARGET_SALARY } from '../data/constants';
 import { ACTIONS } from '../data/actions';
 import { EVENTS } from '../data/events';
@@ -77,7 +77,8 @@ function gameReducer(state: GameState, action: GameAction): GameState {
             if (action.actionId === 'change_job') {
                 historyText += ` 新たな環境での挑戦が始まった。年収が見直された！`;
             }
-            const newHistory = [...state.history, historyText];
+            const logType: LogType = selectedAction.type.toLowerCase() as LogType;
+            const newHistory = [...state.history, { text: historyText, type: logType }];
 
             // Next season logic
             let nextSeason = state.season + 1;
@@ -93,11 +94,11 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
             if (calculatedStamina <= 0 || calculatedMental <= 0) {
                 isGameOver = true;
-                newHistory.push('体調を崩してしまい、エンジニアを続けることができなくなった...');
+                newHistory.push({ text: '体調を崩してしまい、エンジニアを続けることができなくなった...', type: 'danger' });
                 gameResult = 'C';
             } else if (newSalary >= TARGET_SALARY) {
                 isGameOver = true;
-                newHistory.push(`ついに年収${TARGET_SALARY}万円を達成した！`);
+                newHistory.push({ text: `ついに年収${TARGET_SALARY}万円を達成した！`, type: 'success' });
                 // Calculate Rank
                 if (state.year <= 7) gameResult = 'S';
                 else if (state.year <= 9) gameResult = 'A';
@@ -105,7 +106,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
                 else gameResult = 'C';
             } else if (nextYear > MAX_YEAR) {
                 isGameOver = true;
-                newHistory.push('定年を迎えた。');
+                newHistory.push({ text: '定年を迎えた。', type: 'info' });
                 gameResult = 'C';
             }
 
@@ -172,7 +173,8 @@ function gameReducer(state: GameState, action: GameAction): GameState {
                 (effect.salary ? `年収 ${effect.salary > 0 ? '+' : ''}${effect.salary} ` : '');
 
             const summary = getEffectSummary(effect);
-            const newHistory = [...state.history, `イベント「${eventTitle}」: ${label} を選択した。${summary ? ` ${summary}` : ''}`];
+            const historyText = `イベント「${eventTitle}」: ${label} を選択した。${summary ? ` ${summary}` : ''}`;
+            const newHistory: LogEntry[] = [...state.history, { text: historyText, type: 'event' } as LogEntry];
 
             return {
                 ...state,

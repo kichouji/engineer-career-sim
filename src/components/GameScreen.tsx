@@ -36,7 +36,7 @@ export const GameScreen: React.FC = () => {
             <div className="game-over-screen">
                 <h1>GAME OVER</h1>
                 <p className="result-rank">ランク: {state.gameResult}</p>
-                <p>{state.history[state.history.length - 1]}</p>
+                <p>{state.history[state.history.length - 1].text}</p>
 
                 <div className="final-stats">
                     <p>最終年収: {state.status.salary}万円</p>
@@ -85,8 +85,10 @@ export const GameScreen: React.FC = () => {
                             let imageSrc = '/src/assets/bg_office.png'; // Default
 
                             // Special Actions
-                            if (state.lastActionId === 'connect_sns') {
-                                imageSrc = '/src/assets/action_work.png'; // Use work image for SNS (computer usage)
+                            if (state.lastActionId === 'change_job') {
+                                imageSrc = '/src/assets/action_job_change.png';
+                            } else if (state.lastActionId === 'connect_sns') {
+                                imageSrc = '/src/assets/action_sns_post.png';
                             } else if (state.lastActionId === 'work_minimum') {
                                 imageSrc = '/src/assets/bg_office.png'; // Use office bg (not working hard)
                             } else if (state.lastActionType === 'STUDY') imageSrc = '/src/assets/action_study.png';
@@ -103,7 +105,7 @@ export const GameScreen: React.FC = () => {
 
                     <div className="history-log">
                         {state.history.map((log, i) => (
-                            <p key={i} className="log-entry">{log}</p>
+                            <p key={i} className={`log-entry ${log.type}`}>{log.text}</p>
                         ))}
                         <div ref={historyEndRef} />
                     </div>

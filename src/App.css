@@ -292,6 +292,38 @@ body {
   padding-bottom: 0.5rem;
 }
 
+.log-entry.info {
+  color: #aaa;
+}
+
+.log-entry.study {
+  color: #4caf50;
+}
+
+.log-entry.work {
+  color: #2196f3;
+}
+
+.log-entry.connect {
+  color: #9c27b0;
+}
+
+.log-entry.rest {
+  color: #ff9800;
+}
+
+.log-entry.event {
+  color: #ffd700;
+}
+
+.log-entry.danger {
+  color: #ff4444;
+}
+
+.log-entry.success {
+  color: #00e676;
+}
+
 /* Game Over Screen */
 .game-over-screen {
   text-align: center;

@@ -18,7 +18,7 @@ export const INITIAL_GAME_STATE: GameState = {
     popupMessage: null,
     lastActionType: null,
     lastActionId: null,
-    history: ['新卒エンジニアとしての生活が始まった。'],
+    history: [{ text: '新卒エンジニアとしての生活が始まった。', type: 'info' }],
     isGameOver: false,
     gameResult: null,
 };
