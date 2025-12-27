@@ -1,3 +1,5 @@
+import type { ImageKey } from '../data/images';
+
 export interface Status {
   tech: number; // 技術力
   biz: number;  // 業務理解
@@ -26,7 +28,7 @@ export interface GameEvent {
   id: string;
   title: string;
   description: string;
-  image?: string;
+  image?: ImageKey;
   choices?: EventChoice[];
   effects?: Partial<Status>;
 }

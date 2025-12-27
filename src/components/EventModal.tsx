@@ -1,5 +1,6 @@
 import React from 'react';
 import type { GameEvent, EventChoice } from '../types';
+import { IMAGES } from '../data/images';
 
 interface EventModalProps {
     event: GameEvent;
@@ -17,7 +18,7 @@ export const EventModal: React.FC<EventModalProps> = ({ event, onChoose }) => {
                 <div className="modal-body">
                     {event.image && (
                         <div className="event-image-container-modal">
-                            <img src={event.image} alt={event.title} className="event-modal-image" />
+                            <img src={IMAGES[event.image]} alt={event.title} className="event-modal-image" />
                         </div>
                     )}
                     <p className="event-description">{event.description}</p>

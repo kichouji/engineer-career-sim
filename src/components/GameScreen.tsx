@@ -4,6 +4,7 @@ import { StatusPanel } from './StatusPanel';
 import { ActionPanel } from './ActionPanel';
 import { EventModal } from './EventModal';
 import type { EventChoice } from '../types';
+import { IMAGES } from '../data/images';
 
 export const GameScreen: React.FC = () => {
     const { state, selectAction, restartGame, applyEventChoice, closePopup } = useGameState();
@@ -82,19 +83,19 @@ export const GameScreen: React.FC = () => {
                     <div className="event-image-container">
                         {/* Dynamic Image Display */}
                         {(() => {
-                            let imageSrc = '/src/assets/bg_office.png'; // Default
+                            let imageSrc = IMAGES.bg_office; // Default
 
                             // Special Actions
                             if (state.lastActionId === 'change_job') {
-                                imageSrc = '/src/assets/action_job_change.png';
+                                imageSrc = IMAGES.action_job_change;
                             } else if (state.lastActionId === 'connect_sns') {
-                                imageSrc = '/src/assets/action_sns_post.png';
+                                imageSrc = IMAGES.action_sns_post;
                             } else if (state.lastActionId === 'work_minimum') {
-                                imageSrc = '/src/assets/bg_office.png'; // Use office bg (not working hard)
-                            } else if (state.lastActionType === 'STUDY') imageSrc = '/src/assets/action_study.png';
-                            else if (state.lastActionType === 'WORK') imageSrc = '/src/assets/action_work.png';
-                            else if (state.lastActionType === 'CONNECT') imageSrc = '/src/assets/action_connect.png';
-                            else if (state.lastActionType === 'REST') imageSrc = '/src/assets/action_rest.png';
+                                imageSrc = IMAGES.bg_office; // Use office bg (not working hard)
+                            } else if (state.lastActionType === 'STUDY') imageSrc = IMAGES.action_study;
+                            else if (state.lastActionType === 'WORK') imageSrc = IMAGES.action_work;
+                            else if (state.lastActionType === 'CONNECT') imageSrc = IMAGES.action_connect;
+                            else if (state.lastActionType === 'REST') imageSrc = IMAGES.action_rest;
 
                             return <img src={imageSrc} alt="Event Scene" className="event-image" />;
                         })()}

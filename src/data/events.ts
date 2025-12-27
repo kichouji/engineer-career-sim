@@ -6,7 +6,7 @@ export const EVENTS: GameEvent[] = [
         id: 'start_game',
         title: 'SIer生活の始まり',
         description: '今日から君はSIerの新人エンジニアだ。「Excel方眼紙」と「スーツ」の世界へようこそ。まずは研修でビジネスマナーとJavaの基礎を叩き込まれる。',
-        image: '/src/assets/bg_office.png',
+        image: 'bg_office',
         choices: [
             {
                 label: '真面目に受ける',
@@ -24,7 +24,7 @@ export const EVENTS: GameEvent[] = [
         id: 'legacy_system',
         title: '古の魔導書（レガシーコード）',
         description: '配属されたプロジェクトのソースコードは、誰も全容を知らない「秘伝のタレ」状態だった。コメントは10年前の日付...',
-        image: '/src/assets/event_legacy_code.png',
+        image: 'event_legacy_code',
         effects: { mental: -15 },
         choices: [
             {
@@ -41,7 +41,7 @@ export const EVENTS: GameEvent[] = [
         id: 'spec_change',
         title: 'ちゃぶ台返し',
         description: '顧客「やっぱりこの機能、今の業務フローに合わないんで変えてください」\n納期は来週だ。',
-        image: '/src/assets/action_work.png', // Fallback
+        image: 'action_work', // Fallback
         effects: { mental: -30 },
         choices: [
             {
@@ -58,7 +58,7 @@ export const EVENTS: GameEvent[] = [
         id: 'excel_hell',
         title: 'Excel方眼紙の悪夢',
         description: '設計書修正の依頼が来た。「セルの結合がズレてるから直して」という本質的でない指摘が100件...',
-        image: '/src/assets/action_work.png', // Fallback
+        image: 'action_work', // Fallback
         effects: { mental: -10 },
         choices: [
             {
@@ -77,7 +77,7 @@ export const EVENTS: GameEvent[] = [
         id: 'study_meeting',
         title: '社内勉強会への誘い',
         description: '意識高い系の先輩から、業務後の勉強会に誘われた。テーマは「最新クラウド技術について」。',
-        image: '/src/assets/action_study.png', // Reuse
+        image: 'action_study', // Reuse
         choices: [
             {
                 label: '参加する',
@@ -93,7 +93,7 @@ export const EVENTS: GameEvent[] = [
         id: 'headhunter',
         title: '謎のヘッドハンター',
         description: 'LinkedInに英語のメッセージが来た。「あなたの経歴は素晴らしい。年収1.5倍の案件があります」...怪しいが気になる。',
-        image: '/src/assets/bg_office.png', // Fallback
+        image: 'bg_office', // Fallback
         choices: [
             {
                 label: '話を聞いてみる',
@@ -109,7 +109,7 @@ export const EVENTS: GameEvent[] = [
         id: 'new_tech_env',
         title: '隣の芝生は青い',
         description: 'Web系企業に行った大学時代の友人が、私服でフレックス出社し、Go言語で開発している話を聞いてしまった。',
-        image: '/src/assets/action_work.png', // Fallback
+        image: 'action_work', // Fallback
         effects: { mental: -20 }, // 劣等感
         choices: [
             {
@@ -128,7 +128,7 @@ export const EVENTS: GameEvent[] = [
         id: 'drinking_party',
         title: '炎上後の打ち上げ',
         description: 'デスマーチが終わり、プロジェクトメンバーで飲みに行くことに。',
-        image: '/src/assets/action_connect.png', // Reuse
+        image: 'action_connect', // Reuse
         choices: [
             {
                 label: '朝まで飲む',
